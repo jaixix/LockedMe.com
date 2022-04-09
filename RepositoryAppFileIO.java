@@ -3,6 +3,8 @@ package repositoryAppFileIO;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -131,6 +133,22 @@ public class RepositoryAppFileIO {
 		if(directory.get(directoryName).contains(deleteFile)) {
 			directory.get(directoryName).remove(deleteFile);
 			System.out.println("'" + deleteFile + "' : Deleted Successfully!");
+			if(directoryName.equalsIgnoreCase("root")) {
+				String tempDeleteFile = "C:\\folder\\" + deleteFile;
+				try {
+		            Files.delete(Paths.get(tempDeleteFile));
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+			}
+			else {
+				String tempDeleteFile = "C:\\D\\" + deleteFile;
+				try {
+		            Files.delete(Paths.get(tempDeleteFile));
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+			}
 		}
 		else
 			System.out.println(deleteFile + " : File Not Found in "+ directoryName +":\\\\");
@@ -140,21 +158,26 @@ public class RepositoryAppFileIO {
 		System.out.println("Please enter the name of file to be ADDED : ");
 		String newFile = sc.nextLine();
 		
-		try {
-			FileOutputStream fos = new FileOutputStream(("C:\\" + newFile));
-			fos.write(0);
-			fos.close();
-//			System.out.println("Closed.");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		if(directory.get(directoryName).contains(newFile))
 			System.out.println("File already exists in "+ directoryName +":\\\\");
 		else {
+			try {
+				if(directoryName.equalsIgnoreCase("root")) {
+					FileOutputStream fos = new FileOutputStream(("C:\\folder\\" + newFile));
+					fos.write(0);
+					fos.close();
+				}
+				else {
+					FileOutputStream fos = new FileOutputStream(("C:\\D\\" + newFile));
+					fos.write(0);
+					fos.close();
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 			directory.get(directoryName).add(newFile);
 			System.out.println("'" + newFile + "' : Added Successfully!");
 		}
@@ -163,13 +186,17 @@ public class RepositoryAppFileIO {
 	public static String getDirectoryChoice(Scanner sc) {
 		System.out.println("Please Enter Directory Name to perform operations");
 		System.out.println("Available Directories : Root and D");
-		
 		String directoryName = sc.nextLine().toUpperCase();
+		
+//		while((!directoryName.equalsIgnoreCase("ROOT")) && (!directoryName.equalsIgnoreCase("D"))) {
+//			System.out.println("\nOops! Wrong Input. Please enter Input as mentioned above.\n");
+//			getDirectoryChoice(sc);
+//		}
 		if((!directoryName.equalsIgnoreCase("ROOT")) && (!directoryName.equalsIgnoreCase("D"))) {
 			System.out.println("\nOops! Wrong Input. Please enter Input as mentioned above.\n");
 			getDirectoryChoice(sc);
 		}
-//		sc.nextLine();
+		System.out.println("{"+directoryName+"}");
 		return directoryName;
 	}
 	
@@ -216,11 +243,35 @@ public class RepositoryAppFileIO {
 		fileNamesC.add("sampleFile2.js");
 		fileNamesC.add("sampleFile3.html");
 		directory.put("ROOT", (ArrayList<String>) fileNamesC);
+		for(String fileName: fileNamesC) {
+			try {
+					FileOutputStream fos = new FileOutputStream(("C:\\folder\\" + fileName));
+					fos.write(0);
+					fos.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		fileNamesD.add("sampleFile1.txt");
 		fileNamesD.add("sampleFile2.js");
 		fileNamesD.add("sampleFile3.html");
 		directory.put("D", (ArrayList<String>) fileNamesD);
+		for(String fileName: fileNamesD) {
+			try {
+					FileOutputStream fos = new FileOutputStream(("C:\\D\\" + fileName));
+					fos.write(0);
+					fos.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void displayWelcomeScreen() {
