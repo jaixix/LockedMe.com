@@ -1,5 +1,8 @@
 package repositoryAppFileIO;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -136,6 +139,19 @@ public class RepositoryAppFileIO {
 	public static void addFile(Scanner sc, Map<String, ArrayList<String>> directory,String directoryName) {
 		System.out.println("Please enter the name of file to be ADDED : ");
 		String newFile = sc.nextLine();
+		
+		try {
+			FileOutputStream fos = new FileOutputStream(("C:\\" + newFile));
+			fos.write(0);
+			fos.close();
+//			System.out.println("Closed.");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		if(directory.get(directoryName).contains(newFile))
 			System.out.println("File already exists in "+ directoryName +":\\\\");
 		else {
