@@ -78,7 +78,7 @@ public class RepositoryAppFileIO {
 		System.out.println("1) Add a file to the current directory - "+ directoryName +":\\\\");
 		System.out.println("2) Delete a specific file from the current directory - "+ directoryName +":\\\\");
 		System.out.println("3) Search for a specific file from the current directory - "+ directoryName +":\\\\");
-		System.out.println("4) Return to previous menu in the current directory - "+ directoryName +":\\\\");
+		System.out.println("4) Return to Root Directory/Previous Menu of the current directory - "+ directoryName +":\\\\");
 		int inputOp=100;
 		try {
 		inputOp = sc.nextInt();
