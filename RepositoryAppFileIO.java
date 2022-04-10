@@ -188,19 +188,12 @@ public class RepositoryAppFileIO {
 		System.out.println("Available Directories : Root and D");
 		String directoryName = sc.nextLine().toUpperCase();
 		
-//		while((!directoryName.equalsIgnoreCase("ROOT")) && (!directoryName.equalsIgnoreCase("D"))) {
-//			System.out.println("\nOops! Wrong Input. Please enter Input as mentioned above.\n");
-//			getDirectoryChoice(sc);
-//		}
 		if((!directoryName.equalsIgnoreCase("ROOT")) && (!directoryName.equalsIgnoreCase("D"))) {
 			System.out.println("\nOops! Wrong Input. Please enter Input as mentioned above.\n");
 			getDirectoryChoice(sc);
 		}
-		System.out.println("{"+directoryName+"}");
 		return directoryName;
 	}
-	
-	
 	
 	public static void displayFiles(Map<String, ArrayList<String>> directory, String directoryName) {
 		System.out.println("Files in Current Directory - " + directoryName + ":\\\\");
